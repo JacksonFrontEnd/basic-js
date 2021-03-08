@@ -3,6 +3,10 @@ const CustomError = require("../extensions/custom-error");
 module.exports = function repeater(str, options) {
   let resultArray = [];
   let tempMas = [];
+  let bufStr='';
+  if(options.addition === null) {
+    options.addition = 'null';
+  }
   if (options.separator === undefined) {
     options.separator = '+';
   }
@@ -13,20 +17,16 @@ module.exports = function repeater(str, options) {
     options.
       additionRepeatTimes = 1;
   }
+  bufStr=String(options.addition)
   if (options.addition != undefined) {
     for (let j = 0; j < options.additionRepeatTimes; j++) {
-      tempMas.push(options.addition);
+      tempMas.push(bufStr);
     }
-    tempMas.join(options.additionSeparator)
+    str+=tempMas.join(options.additionSeparator)
   }
-
+  bufStr=String(str)
   for (let i = 0; i < options.repeatTimes; i++) {
     resultArray.push(str);
-    if (options.addition != undefined) {
-      if (i > 1 && i < options.repeatTimes - 1) {
-        resultArray.push(tempMas);
-      }
-    }
   }
   return resultArray.join(options.separator)
 };
